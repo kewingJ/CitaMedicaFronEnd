@@ -16,6 +16,7 @@ export class TutorialsListComponent implements OnInit {
     published: false
   };
   
+  
   tutorials?: Tutorial[];
   //currentTutorial: Tutorial = {};
   currentIndex = -1;

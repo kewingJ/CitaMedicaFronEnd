@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service'; 
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,12 +13,12 @@ export class LoginComponent implements OnInit {
     username: null,
     password: null
   };
-  isLoggedIn = false;
+  isLoggedIn = "";
   isLoginFailed = false;
   errorMessage = '';
   roles: string[] = [];
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -27,9 +28,21 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(username, password).subscribe({
       next: data => {
-        this.isLoginFailed = false;
-        this.isLoggedIn = true;
-        console.log(data);
+        if(data != null) {
+          this.isLoginFailed = false;
+          this.isLoggedIn = "si";
+          localStorage.setItem('isLoggedIn', 'si');
+          localStorage.setItem('idUsuario', data['idUsuario']);
+          localStorage.setItem('username', data['username']);
+          localStorage.setItem('rol', data['rol']);
+          console.log(data);
+          this.router.navigateByUrl('/home');
+        } else {
+          this.isLoginFailed = true;
+          this.isLoggedIn = "";
+          console.log(data);
+          this.errorMessage = 'Usuario o Contraseña son incorrectos';
+        }
       },
       error: err => {
         this.errorMessage = err.error.message;

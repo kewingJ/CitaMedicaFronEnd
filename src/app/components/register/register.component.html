@@ -1,5 +1,5 @@
 <div class="col-md-12">
-    <div class="card card-container">
+    <div class="card card-container text-center">
       <img
         id="profile-img"
         src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
@@ -12,28 +12,50 @@
         #f="ngForm"
         novalidate
       >
-      <div class="form-group">
-        <label for="nombre">Nombre</label>
-        <input
-          type="text"
-          class="form-control"
-          name="nombre"
-          [(ngModel)]="form.nombre"
-          required
-          minlength="3"
-          maxlength="20"
-          #nombre="ngModel"
-        />
-        <div class="alert-danger" *ngIf="nombre.errors && f.submitted">
-          <div *ngIf="nombre.errors['required']">nombre is required</div>
-          <div *ngIf="nombre.errors['minlength']">
-            nombre must be at least 3 characters
-          </div>
-          <div *ngIf="nombre.errors['maxlength']">
-            nombre must be at most 20 characters
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input
+            type="text"
+            class="form-control"
+            name="nombre"
+            [(ngModel)]="form.nombre"
+            required
+            minlength="3"
+            maxlength="20"
+            #nombre="ngModel"
+          />
+          <div class="alert-danger" *ngIf="nombre.errors && f.submitted">
+            <div *ngIf="nombre.errors['required']">nombre es requerido</div>
+            <div *ngIf="nombre.errors['minlength']">
+              nombre debe de tener mas de 3 caracteres
+            </div>
+            <div *ngIf="nombre.errors['maxlength']">
+              nombre no debe de ser mayor a 20 caracteres
+            </div>
           </div>
         </div>
-      </div>
+        <div class="form-group">
+          <label for="nombre">Apellido</label>
+          <input
+            type="text"
+            class="form-control"
+            name="apellido"
+            [(ngModel)]="form.apellido"
+            required
+            minlength="3"
+            maxlength="20"
+            #apellido="ngModel"
+          />
+          <div class="alert-danger" *ngIf="apellido.errors && f.submitted">
+            <div *ngIf="apellido.errors['required']">Apellido es requerido</div>
+            <div *ngIf="apellido.errors['minlength']">
+              Apellido debe ser mayor de 3 caracteres
+            </div>
+            <div *ngIf="apellido.errors['maxlength']">
+              Apellido no debe de ser mayor a 20 caracteres
+            </div>
+          </div>
+        </div>
         <div class="form-group">
           <label for="username">Username</label>
           <input
@@ -47,17 +69,17 @@
             #username="ngModel"
           />
           <div class="alert-danger" *ngIf="username.errors && f.submitted">
-            <div *ngIf="username.errors['required']">Username is required</div>
+            <div *ngIf="username.errors['required']">Username es requerido</div>
             <div *ngIf="username.errors['minlength']">
-              Username must be at least 3 characters
+              Username debe ser mayor a 3 caracteres
             </div>
             <div *ngIf="username.errors['maxlength']">
-              Username must be at most 20 characters
+              Username no debe de ser mayor a 20 caracteres
             </div>
           </div>
         </div>
         <div class="form-group">
-          <label for="password">Password</label>
+          <label for="password">Contraseña</label>
           <input
             type="password"
             class="form-control"
@@ -68,23 +90,25 @@
             #password="ngModel"
           />
           <div class="alert-danger" *ngIf="password.errors && f.submitted">
-            <div *ngIf="password.errors['required']">Password is required</div>
+            <div *ngIf="password.errors['required']">Contraseña es requerida</div>
             <div *ngIf="password.errors['minlength']">
-              Password must be at least 6 characters
+              Contraseña debe ser mayor a 6 caracteres
             </div>
           </div>
         </div>
         <div class="form-group">
-          <button class="btn btn-primary btn-block">Sign Up</button>
+          <button class="btn btn-primary btn-block">Registrarme</button>
+          <a routerLink="/" class="nav-link">Login</a>
         </div>
   
         <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
-          Signup failed!<br />{{ errorMessage }}
+          Registro fallo!<br />{{ errorMessage }}
         </div>
       </form>
   
       <div class="alert alert-success" *ngIf="isSuccessful">
-        Your registration is successful!
+        Tu registro se realizo bien!
+        <a routerLink="/" class="nav-link">Login</a>
       </div>
     </div>
   </div>

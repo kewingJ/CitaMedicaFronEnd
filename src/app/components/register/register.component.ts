@@ -9,9 +9,10 @@ import { AuthService } from 'src/app/services/auth.service';
 export class RegisterComponent implements OnInit {
   form: any = {
     nombre: null,
+    apellido: null,
     username: null,
     password: null,
-    rol: 'Paciente'
+    rol: 'paciente'
   };
   isSuccessful = false;
   isSignUpFailed = false;
@@ -23,17 +24,17 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const { nombre, username, password, rol } = this.form;
-
-    this.authService.register(nombre, username, password, rol).subscribe({
+    const { nombre, apellido, username, password, rol } = this.form;
+    this.authService.register(nombre, apellido, username, password, rol).subscribe({
       next: data => {
-        console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
+        console.log(data);
       },
       error: err => {
         this.errorMessage = err.error.message;
         this.isSignUpFailed = true;
+        console.log(err);
       }
     });
   }

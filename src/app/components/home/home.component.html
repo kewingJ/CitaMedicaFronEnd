@@ -1,0 +1,43 @@
+<div class="list row">
+    <div class="col-md-12">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Search by title"
+        />
+        <div class="input-group-append">
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+          >
+            Search
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <h4>Lista de citas</h4>
+      <table class="table table-sm">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Doctor</th>
+            <th scope="col">Fecha cita</th>
+            <th scope="col">Cancelar cita</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cita of citas; let i = index">
+            <th scope="row">{{ cita.idCita }}</th>
+            <td>{{ cita.usuarioDoctor?.nombre }}</td>
+            <td>{{ cita.fechaCita | date:'EEEE d, MMMM y, h:mm:ss a' }}</td>
+            <td>
+              <button class="m-3 btn btn-sm btn-danger" (click)="cancelarCita(cita.idCita)">
+                Cancelar
+              </button>
+            </td>
+          </tr>
+      </table>
+    </div>
+  </div>
