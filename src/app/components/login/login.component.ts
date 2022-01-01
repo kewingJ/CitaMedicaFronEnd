@@ -36,7 +36,12 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('username', data['username']);
           localStorage.setItem('rol', data['rol']);
           console.log(data);
-          this.router.navigateByUrl('/home');
+          if(data['rol'] == 'paciente'){
+            this.router.navigateByUrl('/home');
+          } else {
+            localStorage.setItem('isLoggedIn', '');
+            this.router.navigateByUrl('/doctor');
+          }
         } else {
           this.isLoginFailed = true;
           this.isLoggedIn = "";

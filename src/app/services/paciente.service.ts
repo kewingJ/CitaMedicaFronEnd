@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Cita } from '../models/cita.model';
 import { Usuario } from '../models/usuario.model';
+import { Disponibilidad } from '../models/disponibilidad.model';
 
 const baseUrl = 'http://localhost:8080/citasMedicasBackBean-1.0-SNAPSHOT';
 
@@ -25,7 +26,16 @@ export class PacienteService {
     return this.http.get<Usuario[]>(`${baseUrl}/appointment/doctores`);
   }
 
-  getDisponibilidadDoctor(idDoctor: string, fecha: string): Observable<any> {
-    return this.http.get(baseUrl+'/schedule/'+idDoctor+'&'+fecha+'&paciente');
+  getDisponibilidadDoctor(idDoctor: string, fecha: string): Observable<Disponibilidad[]> {
+    return this.http.get<Disponibilidad[]>(baseUrl+'/schedule/'+idDoctor+'&'+fecha+'&paciente');
+  }
+
+  saveCita(usuarioPaciente: Usuario, usuarioDoctor: Usuario, fechaCita: string): Observable<any> {
+    //return this.http.post(baseUrl + '/appointment', cita);
+    return this.http.post(`${baseUrl}/appointment`,{
+      usuarioPaciente,
+      usuarioDoctor,
+      fechaCita
+    });
   }
 }

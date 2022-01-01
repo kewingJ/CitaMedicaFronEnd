@@ -25,6 +25,38 @@
   
         <button class="btn btn-success" (click)="getDisponibilidad()">Consultar Disponibilidad</button>
       </div>
+      <div class="col-md-12" style="top: 15px;">
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Dia</th>
+              <th scope="col">Hora inicio</th>
+              <th scope="col">Hora fin</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let disponibilidad of disponibilidades; let i = index">
+              <th scope="row">{{ disponibilidad.idDisponibilidad }}</th>
+              <td>{{ disponibilidad.dia }}</td>
+              <td>{{ disponibilidad.horaInicio }}</td>
+              <td>{{ disponibilidad.horaFin }}</td>
+            </tr>
+        </table>
+      </div>
+
+      <div class="col-md-12" style="top: 15px;" *ngIf="disponibilidades?.length! > 0">
+        <div class="form-group">
+          <label for="horaCita">Hora de la cita</label>
+          <select class="form-control" id="horaCita" (change)="seleccionarHora()"
+          required name="horaCita" [(ngModel)]="horaCita">
+            <option [value]="listaHoras" *ngFor="let listaHoras of listaHoras">
+                {{listaHoras}}
+            </option>
+          </select>
+        </div>
+        <button style="margin-top: 10px;" class="btn btn-success" (click)="saveCitaPaciente()">Reservar cita</button>
+      </div>
 
     </div>
   </div>
