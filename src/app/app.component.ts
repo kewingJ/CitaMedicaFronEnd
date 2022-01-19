@@ -7,23 +7,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  isLoggedIn? : string = "";
-  username? : string;
-  rolUsuario? : string = "";
+  isLoggedIn : any = false;
+  username : string = "";
+  rolUsuario : string = "";
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.isLoggedIn = localStorage.getItem('isLoggedIn')!;
     this.rolUsuario = localStorage.getItem('rol')!;
-
-    if (this.isLoggedIn == "si") {
+    if (this.isLoggedIn == true) {
       this.username = localStorage.getItem('username')!;
     }
   }
 
   logout(): void {
     localStorage.clear();
+    window.location.reload();
     this.router.navigateByUrl('login');
   }
 }

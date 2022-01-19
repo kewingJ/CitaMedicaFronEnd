@@ -127,13 +127,12 @@ export class AddCitaComponent implements OnInit {
     this.pacienteService.saveCita(this.usuarioPaciente, this.usuarioDoctor, fecha).subscribe({
       next: data => {
         console.log(data);
-        if(data['mensaje'] != 'bien'){
-          Swal.fire(data['mensaje']);
-        } else {
-          this.router.navigateByUrl('home');
-        }
+        this.router.navigateByUrl('home');
       },
-      error: (e) => console.error(e)
+      error: err => {
+        Swal.fire(err.error.text);
+        console.log(err);
+      }
     });
   }
 

@@ -57,13 +57,12 @@ export class HomeComponent implements OnInit {
       .subscribe({
         next: (data) => {
           console.log(data);
-          if(data['mensaje'] != 'bien'){
-            Swal.fire(data['mensaje']);
-          } else {
-            this.router.navigateByUrl('home');
-          }
+          window.location.reload();
         },
-        error: (e) => console.error(e)
+        error: err => {
+          Swal.fire(err.error.text);
+          console.log(err);
+        }
       });
   }
 }

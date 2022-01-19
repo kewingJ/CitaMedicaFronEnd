@@ -13,7 +13,8 @@ export class LoginComponent implements OnInit {
     username: null,
     password: null
   };
-  isLoggedIn = "";
+  isLoggedIn = false;
+  rolUsuario = "";
   isLoginFailed = false;
   errorMessage = '';
   roles: string[] = [];
@@ -21,6 +22,10 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    if (localStorage.getItem('isLoggedIn')) {
+      this.isLoggedIn = true;
+      this.rolUsuario = localStorage.getItem('rol')!;
+    }
   }
 
   onSubmit(): void {
@@ -30,21 +35,22 @@ export class LoginComponent implements OnInit {
       next: data => {
         if(data != null) {
           this.isLoginFailed = false;
-          this.isLoggedIn = "si";
-          localStorage.setItem('isLoggedIn', 'si');
+          this.isLoggedIn = true;
+          localStorage.setItem('isLoggedIn', 'true');
           localStorage.setItem('idUsuario', data['idUsuario']);
           localStorage.setItem('username', data['username']);
+          localStorage.setItem('password', data['password']);
           localStorage.setItem('rol', data['rol']);
+          this.rolUsuario = localStorage.getItem('rol')!;
           console.log(data);
           if(data['rol'] == 'paciente'){
-            this.router.navigateByUrl('/home');
+            this.reloadPage();
           } else {
-            localStorage.setItem('isLoggedIn', '');
-            this.router.navigateByUrl('/doctor');
+            this.reloadPage();
           }
         } else {
           this.isLoginFailed = true;
-          this.isLoggedIn = "";
+          this.isLoggedIn = false;
           console.log(data);
           this.errorMessage = 'Usuario o Contraseña son incorrectos';
         }
@@ -54,6 +60,14 @@ export class LoginComponent implements OnInit {
         this.isLoginFailed = true;
       }
     });
+  }
+
+  homePaciente(): void {
+    this.router.navigateByUrl('home');
+  }
+
+  homeDoctor(): void {
+    this.router.navigateByUrl('doctor');
   }
 
   reloadPage(): void {

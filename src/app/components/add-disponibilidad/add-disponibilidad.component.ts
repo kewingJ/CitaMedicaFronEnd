@@ -63,13 +63,12 @@ export class AddDisponibilidadComponent implements OnInit {
       this.doctorService.saveDisponibilidad(this.usuarioDoctor, this.diaSeleccionado, this.horaInicio, this.horaFin).subscribe({
         next: data => {
           console.log(data);
-          if(data['mensaje'] != 'bien'){
-            Swal.fire(data['mensaje']);
-          } else {
-            this.router.navigateByUrl('doctor');
-          }
+          this.router.navigateByUrl('doctor');
         },
-        error: (e) => console.error(e)
+        error: err => {
+          Swal.fire(err.error.text);
+          console.log(err);
+        }
       });
     } else {
       Swal.fire('Debe seleccionar un dia y hora de inicio y fin');

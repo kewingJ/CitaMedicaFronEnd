@@ -6,7 +6,7 @@
       class="profile-img-card"
     />
     <form
-      *ngIf="isLoggedIn == ''"
+      *ngIf="isLoggedIn == false"
       name="form"
       (ngSubmit)="f.form.valid && onSubmit()"
       #f="ngForm"
@@ -69,8 +69,12 @@
       </div>
     </form>
 
-    <div class="alert alert-success" *ngIf="isLoggedIn == 'si'">
-      login bien {{ roles }}.
+    <div class="alert alert-success" *ngIf="isLoggedIn && rolUsuario == 'paciente'">
+      Bienvenido!  <a class="nav-link" (click)="homePaciente()">ver citas agendadas</a>
+    </div>
+
+    <div class="alert alert-success" *ngIf="isLoggedIn && rolUsuario == 'doctor'">
+      Bienvenido! <a class="nav-link" (click)="homeDoctor()">ver citas</a>
     </div>
   </div>
 </div>
